@@ -57,7 +57,7 @@ pipeline {
                     input message: 'Deployment approved?'
                 }
                 dir("/var/www/html") {
-                    unstash "maven-build
+                    unstash "maven-build"
                 }
                 sh """
                 cd /var/www/html/
