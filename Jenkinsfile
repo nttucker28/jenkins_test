@@ -28,6 +28,7 @@ pipeline {
             }
             post {
                 success {
+                    echo "success"
                     /*dir("webapp/target/") {
                         stash name: "maven-build", includes: "*.war"
                     }*/
@@ -40,6 +41,7 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
+                echo "dev deploy"
                 /*dir("/var/www/html") {
                     unstash "maven-build"
                 }
@@ -54,6 +56,7 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
+                echo "prod deploy"
                 /*timeout(time:5, unit:'DAYS') {
                     input message: 'Deployment approved?'
                 }
