@@ -28,9 +28,9 @@ pipeline {
             }
             post {
                 success {
-                    dir("webapp/target/") {
+                    /*dir("webapp/target/") {
                         stash name: "maven-build", includes: "*.war"
-                    }
+                    }*/
                 }
             }
             
@@ -40,13 +40,13 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                dir("/var/www/html") {
+                /*dir("/var/www/html") {
                     unstash "maven-build"
                 }
                 sh """
                 cd /var/www/html/
                 jar -xvf webapp.war
-                """
+                """*/
             }
         }
         stage ('DeployProd') {
@@ -54,7 +54,7 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                timeout(time:5, unit:'DAYS') {
+                /*timeout(time:5, unit:'DAYS') {
                     input message: 'Deployment approved?'
                 }
                 dir("/var/www/html") {
@@ -63,7 +63,7 @@ pipeline {
                 sh """
                 cd /var/www/html/
                 jar -xvf webapp.war
-                """
+                """*/
             }
         }
     }
