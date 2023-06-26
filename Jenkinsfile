@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                echo "build on master branch
+                echo "build on master branch"
                 //sh 'mvn clean package -DskiptTests=true'
                 sh 'mvn clean install'
             }
