@@ -1,10 +1,11 @@
 pipeline {
     agent any
-    tools {maven 'MAVEN LOCAL'}
+    tools { maven 'Maven LOCAL' }
     stages {
         stage ('Build') {
             steps {
-                sh 'mvn clean package -DskiptTests=true'
+                //sh 'mvn clean package -DskiptTests=true'
+                sh 'mvn clean install'
             }
         }
         stage ('Test') {
@@ -27,9 +28,10 @@ pipeline {
             }
             post {
                 success {
-                    dir("webapp/target/") {
+                    echo "success"
+                    /*dir("webapp/target/") {
                         stash name: "maven-build", includes: "*.war"
-                    }
+                    }*/
                 }
             }
             
@@ -39,13 +41,14 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                dir("/var/www/html") {
+                echo "dev deploy"
+                /*dir("/var/www/html") {
                     unstash "maven-build"
                 }
                 sh """
                 cd /var/www/html/
                 jar -xvf webapp.war
-                """
+                """*/
             }
         }
         stage ('DeployProd') {
@@ -53,16 +56,17 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                timeout(time:5, unit:'DAYS') {
+                echo "prod deploy"
+                /*timeout(time:5, unit:'DAYS') {
                     input message: 'Deployment approved?'
                 }
                 dir("/var/www/html") {
-                    unstash "maven-build
+                    unstash "maven-build"
                 }
                 sh """
                 cd /var/www/html/
                 jar -xvf webapp.war
-                """
+                """*/
             }
         }
     }
