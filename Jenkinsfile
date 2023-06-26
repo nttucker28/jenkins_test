@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
+                echo "build on main branch"
                 //sh 'mvn clean package -DskiptTests=true'
                 sh 'mvn clean install'
             }
@@ -13,14 +14,14 @@ pipeline {
                 stage('Test A') {
                     agent any
                     steps {
-                        echo "This is test A"
+                        echo "This is test A on main branch"
                         sh "mvn test"
                     }
                 }
                 stage('Test B') {
                     agent any
                     steps {
-                        echo "This is test B"
+                        echo "This is test B on main branch"
                         sh "mvn test"
                     }
                 
@@ -28,7 +29,7 @@ pipeline {
             }
             post {
                 success {
-                    echo "success"
+                    echo "success on main branch"
                     /*dir("webapp/target/") {
                         stash name: "maven-build", includes: "*.war"
                     }*/
@@ -41,7 +42,7 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                echo "dev deploy"
+                echo "dev deploy on main branch"
                 /*dir("/var/www/html") {
                     unstash "maven-build"
                 }
@@ -56,7 +57,7 @@ pipeline {
                 beforeAgent true}
             agent any
             steps {
-                echo "prod deploy"
+                echo "prod deploy on main branch"
                 /*timeout(time:5, unit:'DAYS') {
                     input message: 'Deployment approved?'
                 }
